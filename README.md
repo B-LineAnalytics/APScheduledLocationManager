@@ -1,8 +1,8 @@
 # APScheduledLocationManager
  [![license MIT](https://img.shields.io/cocoapods/l/JSQCoreDataKit.svg)][mitLink]
- 
+
 Location manager that allows to get background location updates every *n* seconds with desired location accuracy.
- 
+
 *n* - range is between 2 - 170 seconds (limited by max allowed background task time)
 
 ## Requirements
@@ -12,7 +12,7 @@ Location manager that allows to get background location updates every *n* second
 
 ## Installation
 
-##### [CocoaPods](http://cocoapods.org). Please use the latest CocoaPods as this framework is using Swift 3  
+##### [CocoaPods](http://cocoapods.org). Please use the latest CocoaPods as this framework is using Swift 3
 
 ````ruby
 use_frameworks!
@@ -20,8 +20,8 @@ use_frameworks!
 pod 'APScheduledLocationManager'
 
 ````
- 
-## Usage 
+
+## Usage
 ##### 1. Configure Xcode project
 
 In target ````Capabilities```` enable ````Background Modes```` and check ````Location updates````
@@ -40,7 +40,7 @@ import CoreLocation
 ````swift
 let manager = APScheduledLocationManager(delegate: self)
 ````
-##### 4. Confirm to ````APScheduledLocationManagerDelegate```` 
+##### 4. Confirm to ````APScheduledLocationManagerDelegate````
 
 ````swift
 func scheduledLocationManager(_ manager: APScheduledLocationManager, didFailWithError error: Error){
@@ -57,28 +57,28 @@ func scheduledLocationManager(_ manager: APScheduledLocationManager, didChangeAu
 ````
 ##### 5. Request authorized always permission
 
-You can use ````requestAlwaysAuthorization```` helper method of ````APScheduledLocationManager```` or your own implementation. 
+You can use ````requestAlwaysAuthorization```` helper method of ````APScheduledLocationManager```` or your own implementation.
 
 
 
 ##### 6. Start location manager when permission is granted
 
 ````swift
-manager.startUpdatingLocation(interval: 170, acceptableLocationAccuracy: 100)
+manager.startUpdatingLocation(interval: 170, acceptableLocationAccuracy: 100, timeout: 30)
 ````
-There are 2 options to adjust the location manager: 
+There are 3 options to adjust the location manager:
 
 - ````interval: TimeInterval```` - interval with which the location will be gathered. The range is between 2 - 170 seconds, lower or higher values will be overwritten
-- ````acceptableLocationAccuracy: CLLocationAccuracy```` - the location manager will wait till locations with desired accuracy are retrieved. 
-
+- ````acceptableLocationAccuracy: CLLocationAccuracy```` - the location manager will wait till locations with desired accuracy are retrieved.
+- ````interval: Timeout```` - interval for which the location manager has to gather the location.  If the location is not found within the alotted time, most accurate location will be returned. Set to 0 if timeout is not needed.  Use a timeout for less drain on battery if location cannot be determined due to interference of some sort.
 
 ##### 7. To stop location manager call ````stopLocationManager````
 
-## Example 
+## Example
 
 See an example app ````ScheduledLocationExample```` in the repository
 
-Note, if you test on a stimulater edit scheme and set default location. 
+Note, if you test on a stimulater edit scheme and set default location.
 
 ## License
 
