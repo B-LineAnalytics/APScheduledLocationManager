@@ -203,7 +203,8 @@ public class APScheduledLocationManager: NSObject, CLLocationManagerDelegate {
         stopWaitTimer()
 
         if acceptableLocationAccuracyRetrieved() {
-
+			
+			stopTimeoutTimer()
             startBackgroundTask()
             startCheckLocationTimer()
             stopLocationManager()
@@ -232,6 +233,7 @@ public class APScheduledLocationManager: NSObject, CLLocationManagerDelegate {
 
 	func timeoutTimerEvent() {
 
+		stopWaitTimer()
 		stopTimeoutTimer()
 
 		startBackgroundTask()
